@@ -1,11 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Full Body Smooth Scroll</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: auto !important;
+        }
+
+        body {
+            background-color: #111;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            overflow: hidden;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .image-wrapper {
+            width: 80%;
+            height: 500px;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.3);
+        }
+    </style>
+
+    <!-- GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.2/gsap.min.js"></script>
+
+    <!-- GSAP ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.3.11/dist/lenis.min.js"></script>
+
 </head>
+
 <body>
-    
+
+    <main>
+
+        <section>
+            Section 1: Scroll Down
+        </section>
+
+        <section>
+            Section 2: Super Smooth
+        </section>
+
+        <section>
+            <div class="image-wrapper">
+                <img src="https://pinetreelane.com/wp-content/uploads/2025/04/DSC00817-HDR.png" class="reveal-image">
+            </div>
+        </section>
+
+        <section>
+            Section 3: Powered by GSAP & Lenis
+        </section>
+
+        <section>
+            <h1 class="reveal-text">
+                This fades in on scroll
+            </h1>
+        </section>
+
+    </main>
+
+    <script>
+
+        // Register GSAP Plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+
+        // Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+
+            easing: (t) =>
+                Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+
+            smoothWheel: true,
+
+            smoothTouch: false
+        });
+
+
+        // Synchronize Lenis with ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+
+
+        // Use GSAP ticker for Lenis animation
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 500);
+        });
+
+
+        // Disable GSAP lag smoothing
+        gsap.ticker.lagSmoothing(0);
+
+
+        // Reveal Text Animation
+        gsap.fromTo(
+            ".reveal-text",
+
+            {
+                opacity: 0,
+                y: 50,
+                scale: 0.8
+            },
+
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1.5,
+
+                ease: "none",
+
+                scrollTrigger: {
+                    trigger: ".reveal-text",
+                    start: "top 90%",
+                    end: "bottom 20%",
+                    scrub: true
+                }
+            }
+        );
+
+        gsap.fromTo(".reveal-image",
+            {
+                scale: 1.3,
+                clipPath: "inset(20% 20% 20% 20%)"
+            },
+            {
+                scale: 1,
+                clipPath: "inset(0% 0% 0% 0%)",
+                ease: "none",
+
+                scrollTrigger: {
+                    trigger: ".image-wrapper",
+                    start: "top 85%",
+                    end: "top 20%",
+                    scrub: 1
+                }
+            }
+        );
+
+
+        // Refresh ScrollTrigger after everything loads
+        window.addEventListener("load", () => {
+            ScrollTrigger.refresh();
+        });
+
+    </script>
+
 </body>
+
 </html>
