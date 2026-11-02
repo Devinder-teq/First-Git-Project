@@ -7,9 +7,7 @@
     <title>Responsive Custom Navbar</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ==========================================================================
-   1. Reset & Global Styles
-   ========================================================================== */
+        /* ===== 1. Reset & Global Styles ===== */
         * {
             margin: 0;
             padding: 0;
@@ -22,9 +20,7 @@
             color: #333;
         }
 
-        /* ==========================================================================
-   2. Desktop Navbar Styles
-   ========================================================================== */
+        /* ====  2. Desktop Navbar Styles ====== */
         .navbar {
             position: fixed;
             top: 0;
@@ -96,9 +92,7 @@
             box-shadow: 0 4px 12px rgba(0, 173, 181, 0.3);
         }
 
-        /* ==========================================================================
-   3. Functional Toggle Elements (Hidden on Desktop)
-   ========================================================================== */
+        /* ====  3. Functional Toggle Elements (Hidden on Desktop) ==== */
         .menu-toggle-cb {
             display: none;
         }
@@ -120,9 +114,7 @@
             transition: all 0.3s ease;
         }
 
-        /* ==========================================================================
-   4. Mobile Responsive Layout (Breakpoint: 768px)
-   ========================================================================== */
+        /* ===  4. Mobile Responsive Layout (Breakpoint: 768px) ======= */
         @media screen and (max-width: 768px) {
 
             /* Show hamburger button */
@@ -157,9 +149,7 @@
                 padding: 12px 0;
             }
 
-            /* ==========================================================================
-     5. Checkbox Activation Rules (The Magic)
-     ========================================================================== */
+            /* ====  5. Checkbox Activation Rules (The Magic) ====== */
 
             /* Slide Menu In when Checked */
             .menu-toggle-cb:checked~.nav-links {
