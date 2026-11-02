@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Question Form</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 25px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 20px;
+            color: green;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Interview Question Form</h2>
+
+        <form id="interviewForm">
+
+            <label>Candidate Name</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="Enter email" required>
+
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="Enter phone number" required>
+
+            <label>Position Applied For</label>
+            <select name="position" required>
+                <option value="">Select Position</option>
+                <option>Web Developer</option>
+                <option>Software Developer</option>
+                <option>Data Analyst</option>
+                <option>Designer</option>
+                <option>Other</option>
+            </select>
+
+            <label>1. Tell me about yourself.</label>
+            <textarea name="q1" placeholder="Your answer..." required></textarea>
+
+            <label>2. What are your strengths?</label>
+            <textarea name="q2" placeholder="Your answer..." required></textarea>
+
+            <label>3. What are your weaknesses?</label>
+            <textarea name="q3" placeholder="Your answer..." required></textarea>
+
+            <label>4. Why should we hire you?</label>
+            <textarea name="q4" placeholder="Your answer..." required></textarea>
+
+            <label>5. What are your career goals?</label>
+            <textarea name="q5" placeholder="Your answer..." required></textarea>
+
+            <label>6. What is your experience?</label>
+            <textarea name="q6" placeholder="Your answer..." required></textarea>
+
+            <button type="submit">Submit Interview Form</button>
+
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("interviewForm")
+            .addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(this);
+
+                let answers = {};
+                formData.forEach((value, key) => {
+                    answers[key] = value;
+                });
+
+                console.log("Interview Responses:", answers);
+
+                document.getElementById("result").innerText =
+                    "Interview form submitted successfully!";
+
+                this.reset();
+            });
+    </script>
+
+</body>
+
+</html>
