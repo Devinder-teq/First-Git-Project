@@ -19,8 +19,8 @@
         }
 
         body {
-            background-color: #111;
-            color: white;
+            background-color: #2c1111;
+            color: rgb(247, 247, 247);
             font-family: sans-serif;
         }
 
@@ -94,6 +94,19 @@
             </h1>
         </section>
 
+        <section>
+            <div class="image-wrapper">
+                <img src="https://pinetreelane.com/wp-content/uploads/2025/04/DSC00817-HDR.png" class="reveal-image">
+            </div>
+        </section>
+
+
+        <section>
+            <h1 class="reveal-text">
+                This fades in on scroll
+            </h1>
+        </section>
+
     </main>
 
     <script>
@@ -129,50 +142,55 @@
         gsap.ticker.lagSmoothing(0);
 
 
-        // Reveal Text Animation
-        gsap.fromTo(
-            ".reveal-text",
+        // Reveal Animation for Multiple Headings
+        gsap.utils.toArray(".reveal-text").forEach((heading) => {
+            gsap.fromTo (
+                heading,
+                {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.8
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1.5,
+                    ease: "none",
 
-            {
-                opacity: 0,
-                y: 50,
-                scale: 0.8
-            },
-
-            {
-                opacity: 1,
-                y: 0,
-                scale: 1.5,
-
-                ease: "none",
-
-                scrollTrigger: {
-                    trigger: ".reveal-text",
-                    start: "top 90%",
-                    end: "bottom 20%",
-                    scrub: true
+                    scrollTrigger: {
+                        trigger: heading,
+                        start: "top 90%",
+                        end: "bottom 20%",
+                        scrub: true
+                    }
                 }
-            }
-        );
+            );
+        });
 
-        gsap.fromTo(".reveal-image",
-            {
-                scale: 1.3,
-                clipPath: "inset(20% 20% 20% 20%)"
-            },
-            {
-                scale: 1,
-                clipPath: "inset(0% 0% 0% 0%)",
-                ease: "none",
+        // Reveal Animation for Multiple Images
+        gsap.utils.toArray(".reveal-image").forEach((image) => {
 
-                scrollTrigger: {
-                    trigger: ".image-wrapper",
-                    start: "top 85%",
-                    end: "top 20%",
-                    scrub: 1
+            gsap.fromTo(
+                image,
+                {
+                    scale: 1.3,
+                    clipPath: "inset(20% 20% 20% 20%)"
+                },
+                {
+                    scale: 1,
+                    clipPath: "inset(0% 0% 0% 0%)",
+                    ease: "none",
+
+                    scrollTrigger: {
+                        trigger: image.closest(".image-wrapper") || image,
+                        start: "top 85%",
+                        end: "top 20%",
+                        scrub: 1
+                    }
                 }
-            }
-        );
+            );
+
+        });
 
 
         // Refresh ScrollTrigger after everything loads
